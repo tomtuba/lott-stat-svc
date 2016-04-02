@@ -16,7 +16,7 @@ public class StateService {
 		
 		State state = State.valueOfAbbreviation(id);
 		
-		return Response.status(200).entity("getStateByPostalCode is called, id : " + id + ", state: " + state.name())
+		return Response.status(200).entity("getStateByPostalCode is called, id : " + id + ", state: " + state.toString())
 				.build();
 	}
 	

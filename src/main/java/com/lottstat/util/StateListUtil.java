@@ -12,6 +12,8 @@ public class StateListUtil {
 		List<State> answer = new ArrayList<State>();
 		answer.add(State.FLORIDA);
 		answer.add(State.ILLINOIS);
+		answer.add(State.WASHINGTON);
+		
 		return answer;
 	}
 	
