@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.lottstat.entity.State;
+import com.lottstat.entity.StateEnum;
 
 public class StateListUtil {
-	public static List<State> getLotteryStates() {
-		List<State> answer = new ArrayList<State>();
-		answer.add(State.FLORIDA);
-		answer.add(State.ILLINOIS);
-		answer.add(State.WASHINGTON);
+	public static List<StateEnum> getLotteryStates() {
+		List<StateEnum> answer = new ArrayList<StateEnum>();
+		answer.add(StateEnum.FLORIDA);
+		answer.add(StateEnum.ILLINOIS);
+		answer.add(StateEnum.WASHINGTON);
 		
 		return answer;
 	}
@@ -20,7 +20,7 @@ public class StateListUtil {
 	public static JSONObject getLotteryStatesJSON() {
 		JSONObject b = new JSONObject();
 		
-		for (State state: getLotteryStates()) {
+		for (StateEnum state: getLotteryStates()) {
 			b.put(state.getAbbreviation(), state.toString());
 		}
 		
