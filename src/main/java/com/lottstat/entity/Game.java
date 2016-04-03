@@ -3,6 +3,9 @@ package com.lottstat.entity;
 import java.util.List;
 
 public class Game {
+	public Game() {
+		
+	}
 	
 	private String name;
 	private String gameNumber;

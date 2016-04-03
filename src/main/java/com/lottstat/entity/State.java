@@ -4,6 +4,9 @@ import java.util.List;
 
 public class State {
 	
+	
+	public State() {
+	}
 	private String name;
 	private String abbrev;
 	private List<Game> games;

@@ -1,6 +1,9 @@
 package com.lottstat.entity;
 
 public class Prize {
+	public Prize() {
+		
+	}
 	private int value;
 	private int totalPrizes;
 	private int remainingPrizes;
