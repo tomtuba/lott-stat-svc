@@ -9,8 +9,6 @@ import com.lottstat.converter.FloridaConverter;
 import com.lottstat.dao.StateDataDAO;
 import com.lottstat.dao.impl.DefaultStateDataDAO;
 import com.lottstat.entity.State;
-import com.lottstat.entity.StateEnum;
-import com.lottstat.util.MockState;
 
 @Path("/states")
 public class StateService {
