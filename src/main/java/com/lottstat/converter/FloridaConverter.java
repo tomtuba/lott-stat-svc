@@ -34,7 +34,6 @@ public class FloridaConverter {
 		
 		// Get the rows from the prizesRemaining table
 		Elements rows = doc.select(".prizesRemaining tbody tr");
-		System.out.println("row count: " + rows.size());
 		for (Element row : rows) {
 			// Get all the cells from the row
 			Elements cells = row.select("td");
