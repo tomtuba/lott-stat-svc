@@ -50,15 +50,6 @@ public class FloridaConverter {
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
 				
-				// The game number cell
-				Element cellOne = cells.get(0);
-				String gameId = StringUtils.trim(cellOne.html());
-				game.setGameNumber(gameId);
-				
-				// The value cell
-				Element cellFive = cells.get(4);
-				game.setGameCost(convertToNumber(cellFive.html()));
-				
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);
 				games.add(game);
@@ -72,43 +63,8 @@ public class FloridaConverter {
 	
 	private Prize getPrize(Elements cells) {
 		Prize prize = new Prize();
-		
-		// The prize value cell
-		Element cellThree = cells.get(2);
-		prize.setValue(convertToNumber(cellThree.html()));
-		
-		// The remaining prizes cell
-		String cellFourString = cells.get(3).html();
-		prize.setRemainingPrizes(beforeOf(cellFourString));
-		
-		prize.setTotalPrizes(afterOf(cellFourString));
-		
+				
 		return prize;
-	}
-	
-	private static int convertToNumber(String str) {
-		String withoutDollar = StringUtils.remove(StringUtils.trim(str), "$");
-		String withoutStar = StringUtils.remove(withoutDollar, "*");
-		String withoutComma = StringUtils.remove(withoutStar, ",");
-		String beforeDecimal = StringUtils.substringBefore(withoutComma,".");
-		String beforeSpace = StringUtils.substringBefore(beforeDecimal, " ");
-		String beforeSlash = StringUtils.substringBefore(beforeSpace, "/");
-		int answer = 0;
-		
-		try {
-			answer = Integer.parseInt(beforeSlash);
-		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
-		}
-		return answer;
-	}
-	
-	private static int beforeOf(String str) {
-		return convertToNumber(StringUtils.substringBefore(str, "of"));
-	}
-	
-	private static int afterOf(String str) {
-		return convertToNumber(StringUtils.substringAfter(str, "of"));
 	}
 
 }
