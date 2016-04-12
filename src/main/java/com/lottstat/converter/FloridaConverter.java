@@ -48,6 +48,7 @@ public class FloridaConverter {
 				game = new Game();
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
+				game.setGameCost(convertNumber(cells.get(4).html()));
 				
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);
@@ -62,8 +63,32 @@ public class FloridaConverter {
 	
 	private Prize getPrize(Elements cells) {
 		Prize prize = new Prize();
-				
+				prize.setValue(convertNumber(cells.get(2).html()));
+				prize.setRemainingPrizes(convertRemainingPrizes(cells.get(3).html()));
+				prize.setTotalPrizes(convertTotalPrizes(cells.get(3).html()));
 		return prize;
 	}
-
+	private int convertNumber(String html){
+		// $250,000.00
+		String dollars = StringUtils.substringBefore(html, ".");
+		// $250,000
+		String noComma = StringUtils.remove(dollars, ",");
+		// $250000
+		String dollarSign = StringUtils.substringAfter(noComma, "$");
+		// 250000
+		String noWords = StringUtils.substringBefore(dollarSign, " ");
+		String noSlash = StringUtils.substringBefore(noWords, "/");
+		return Integer.parseInt(noSlash);
+	}
+	private int convertRemainingPrizes(String html){
+		//1 of 6 
+		String remainingPrizes = StringUtils.substringBefore(html, " of");
+		return Integer.parseInt(remainingPrizes);
+	}
+	private int convertTotalPrizes(String html){
+		String totalPrizes = StringUtils.substringAfter(html, "of ");
+		String noSpace = StringUtils.trim(totalPrizes);
+		String noStar = StringUtils.remove(noSpace, "*");
+		return Integer.parseInt(noStar);
+	}
 }
