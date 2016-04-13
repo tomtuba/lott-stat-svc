@@ -16,7 +16,10 @@ import com.lottstat.entity.Prize;
 import com.lottstat.entity.State;
 import com.lottstat.entity.StateEnum;
 
-public class FloridaConverter {
+public class FloridaConverter extends Converter {
+	protected FloridaConverter() {
+	}
+	@Override
 	public State convertState(String html) {
 		State state = new State();
 		state.setAbbrev(StateEnum.FLORIDA.getAbbreviation());
