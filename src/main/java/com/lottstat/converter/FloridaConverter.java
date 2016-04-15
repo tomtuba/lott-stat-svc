@@ -52,6 +52,7 @@ public class FloridaConverter extends Converter {
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
 				game.setGameCost(convertNumber(cells.get(4).html()));
+				game.setGameNumber(StringUtils.trim(cells.get(0).html()));
 				
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);
