@@ -22,9 +22,9 @@ public class StateService {
 		StateDataDAO dao = new DefaultStateDataDAO();
 		StateEnum stateEnum = StateEnum.valueOfAbbreviation(id);
 		
-		String html = dao.getStateData("http://www.flalottery.com/remainingPrizes");
 		
 		Converter converter = Converter.getInstance(stateEnum);
+		String html = dao.getStateData(converter.getURL());
 		
 		State state = converter.convertState(html);
 		return state;

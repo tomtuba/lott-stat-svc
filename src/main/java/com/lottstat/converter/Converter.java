@@ -1,12 +1,14 @@
 package com.lottstat.converter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.lottstat.entity.State;
 import com.lottstat.entity.StateEnum;
 
 public abstract class Converter {
 	
 	public abstract State convertState(String html);
-	
+	public abstract String getURL();
 	public static Converter getInstance(StateEnum stateEnum){
 		switch(stateEnum){
 		case ALABAMA:
@@ -34,7 +36,7 @@ public abstract class Converter {
 		case FLORIDA:
 			return new FloridaConverter();
 		case GEORGIA:
-			break;
+			return new GeorgiaConverter();
 		case GUAM:
 			break;
 		case HAWAII:
@@ -135,4 +137,19 @@ public abstract class Converter {
 		}
 		return null;
 	}
+	protected int convertNumber(String html){
+		// $250,000.00
+		String dollars = StringUtils.substringBefore(html, ".");
+		// $250,000
+		String noComma = StringUtils.remove(dollars, ",");
+		// $250000
+		String dollarSign = StringUtils.remove(noComma, "$");
+		// 250000
+		String noWords = StringUtils.substringBefore(dollarSign, " ");
+		String noSlash = StringUtils.substringBefore(noWords, "/");
+		String noStar = StringUtils.remove(noSlash, "*");
+		return Integer.parseInt(noStar);
+	}
+	
 }
+

@@ -16,75 +16,68 @@ import com.lottstat.entity.Prize;
 import com.lottstat.entity.State;
 import com.lottstat.entity.StateEnum;
 
-public class FloridaConverter extends Converter {
-	protected FloridaConverter() {
+public class GeorgiaConverter extends Converter {
+	protected GeorgiaConverter() {
 	}
+
 	@Override
 	public State convertState(String html) {
 		State state = new State();
-		state.setAbbrev(StateEnum.FLORIDA.getAbbreviation());
-		state.setName(StateEnum.FLORIDA.toString());
+		state.setAbbrev(StateEnum.GEORGIA.getAbbreviation());
+		state.setName(StateEnum.GEORGIA.toString());
 
 		// This map is to keep track of which games have already been added
 		Map<String, Game> gameMap = new HashMap<String, Game>();
-		
+
 		// This is the resulting list of games
 		List<Game> games = new ArrayList<Game>();
 		state.setGames(games);
-		
+
 		// Parse the html from the web page into a Jsoup Document
 		Document doc = Jsoup.parse(html);
-		
+
 		// Get the rows from the prizesRemaining table
-		Elements rows = doc.select(".prizesRemaining tbody tr");
+		Elements rows = doc.select("table tr:not(:first-child)");
 		for (Element row : rows) {
 			// Get all the cells from the row
 			Elements cells = row.select("td");
-			
-			// The game name cell
-			Element cellTwo = cells.get(1).select("a").get(0);
-			String gameName = StringUtils.trim(cellTwo.html());
 
-			// Find the game (if we already had it) or create it (if we didn't have it yet)
+			// The game name cell
+			Element cellTwo = cells.get(1);
+			String gameName = StringUtils.trim(cellTwo.html());
+			System.out.println("Game name = "+ gameName);
+
+			// Find the game (if we already had it) or create it (if we didn't
+			// have it yet)
 			Game game = gameMap.get(gameName);
 			if (game == null) {
 				game = new Game();
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
-				game.setGameCost(convertNumber(cells.get(4).html()));
-				
+				game.setGameCost(convertNumber(cells.get(2).html()));
+
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);
 				games.add(game);
 			}
-			
+
 			game.getPrizes().add(getPrize(cells));
 		}
 
 		return state;
 	}
-	
+
 	private Prize getPrize(Elements cells) {
 		Prize prize = new Prize();
-				prize.setValue(convertNumber(cells.get(2).html()));
-				prize.setRemainingPrizes(convertRemainingPrizes(cells.get(3).html()));
-				prize.setTotalPrizes(convertTotalPrizes(cells.get(3).html()));
+		prize.setValue(convertNumber(cells.get(3).html()));
+		prize.setTotalPrizes(convertNumber(cells.get(5).html()));
+		int prizesClaimed = convertNumber(cells.get(4).html());
+		prize.setRemainingPrizes(prize.getTotalPrizes() - prizesClaimed);
 		return prize;
 	}
-	
-	private int convertRemainingPrizes(String html){
-		//1 of 6 
-		String remainingPrizes = StringUtils.substringBefore(html, " of");
-		return Integer.parseInt(remainingPrizes);
-	}
-	private int convertTotalPrizes(String html){
-		String totalPrizes = StringUtils.substringAfter(html, "of ");
-		String noSpace = StringUtils.trim(totalPrizes);
-		String noStar = StringUtils.remove(noSpace, "*");
-		return Integer.parseInt(noStar);
-	}
+
 	@Override
 	public String getURL() {
-		return "http://www.flalottery.com/remainingPrizes";
+		return "https://www.galottery.com/en-us/games/scratchers/scratchers-top-prizes-claimed.html";
 	}
 }
