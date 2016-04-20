@@ -37,7 +37,7 @@ public class GeorgiaConverter extends Converter {
 		Document doc = Jsoup.parse(html);
 
 		// Get the rows from the prizesRemaining table
-		Elements rows = doc.select("table tr:not(:first-child)");
+		Elements rows = doc.select("table tr");
 		for (Element row : rows) {
 			// Get all the cells from the row
 			Elements cells = row.select("td");

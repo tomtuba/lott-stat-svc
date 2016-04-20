@@ -22,13 +22,13 @@ public abstract class Converter {
 		case ARKANSAS:
 			break;
 		case CALIFORNIA:
-			break;
+			return new CaliforniaConverter();
 		case COLORADO:
 			break;
 		case CONNECTICUT:
 			break;
 		case DELAWARE:
-			break;
+			return new DelawareConverter();
 		case DISTRICT_OF_COLUMBIA:
 			break;
 		case FEDERATED_STATES_OF_MICRONESIA:
@@ -54,7 +54,7 @@ public abstract class Converter {
 		case KENTUCKY:
 			break;
 		case LOUISIANA:
-			break;
+			return new LouisianaConverter();
 		case MAINE:
 			break;
 		case MARSHALL_ISLANDS:
@@ -78,11 +78,11 @@ public abstract class Converter {
 		case NEVADA:
 			break;
 		case NEW_HAMPSHIRE:
-			break;
+			return new NewHampshireConverter();
 		case NEW_JERSEY:
 			break;
 		case NEW_MEXICO:
-			break;
+			return new NewMexicoConverter();
 		case NEW_YORK:
 			break;
 		case NORTHERN_MARIANA_ISLANDS:
