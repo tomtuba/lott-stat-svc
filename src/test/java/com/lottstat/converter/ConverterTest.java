@@ -17,6 +17,7 @@ public class ConverterTest {
 		assertTrue(Converter.getInstance(StateEnum.LOUISIANA) instanceof LouisianaConverter);
 		assertTrue(Converter.getInstance(StateEnum.NEW_HAMPSHIRE) instanceof NewHampshireConverter);
 		assertTrue(Converter.getInstance(StateEnum.NEW_MEXICO) instanceof NewMexicoConverter);
+		assertTrue(Converter.getInstance(StateEnum.IOWA) instanceof IowaConverter);
 		assertTrue(Converter.getInstance(StateEnum.UNKNOWN) == null);
 		
 	}

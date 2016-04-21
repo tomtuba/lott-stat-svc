@@ -45,8 +45,6 @@ public class CaliforniaConverter extends Converter{
 			//Why is this OutOfBounds
 			
 			String gameName = StringUtils.trim(cells.get(2).select("a").get(0).html());
-			System.out.println("Game name = "+ gameName);
-
 			// Find the game (if we already had it) or create it (if we didn't
 			// have it yet)
 			Game game = gameMap.get(gameName);
