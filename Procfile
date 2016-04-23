@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/lott-stat-svc/WEB-INF/classes:target/lott-stat-svc/WEB-INF/lib/dependency/*
+web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
