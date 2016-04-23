@@ -78,7 +78,7 @@ public abstract class Converter {
 		case NEVADA:
 			break;
 		case NEW_HAMPSHIRE:
-			return new NewHampshireConverter();
+			break;
 		case NEW_JERSEY:
 			break;
 		case NEW_MEXICO:
