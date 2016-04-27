@@ -15,7 +15,7 @@ import com.lottstat.entity.StateStorage;
 // Singleton
 public class DefaultStateCache implements StateCache {
 	private static DefaultStateCache cache;
-	private static Duration expireTime = Duration.ZERO.plusSeconds(15);
+	private static Duration expireTime = Duration.ZERO.plusMinutes(15);
 
 	private HashMap<StateEnum, StateStorage> storageBin = new HashMap<StateEnum, StateStorage>();
 	private StateDataDAO dao = new DefaultStateDataDAO();
