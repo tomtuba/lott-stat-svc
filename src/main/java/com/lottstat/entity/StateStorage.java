@@ -4,17 +4,17 @@ import java.time.LocalDateTime;
 
 public class StateStorage {
 	private State state;
-	private LocalDateTime lastAccessed;
+	private LocalDateTime whenLastAccessed;
 	public State getState() {
 		return state;
 	}
 	public void setState(State state) {
 		this.state = state;
 	}
-	public LocalDateTime getLastAccessed() {
-		return lastAccessed;
+	public LocalDateTime getWhenLastAccessed() {
+		return whenLastAccessed;
 	}
-	public void setLastAccessed(LocalDateTime lastAccessed) {
-		this.lastAccessed = lastAccessed;
+	public void setWhenLastAccessed(LocalDateTime whenLastAccessed) {
+		this.whenLastAccessed = whenLastAccessed;
 	}
 }
