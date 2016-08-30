@@ -1,6 +1,7 @@
 package com.lottstat.converter;
 
-import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.remove;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 import com.lottstat.entity.State;
 import com.lottstat.entity.StateEnum;
@@ -139,15 +140,15 @@ public abstract class Converter {
 	}
 	protected int convertNumber(String html){
 		// $250,000.00
-		String dollars = StringUtils.substringBefore(html, ".");
+		String dollars = substringBefore(html, ".");
 		// $250,000
-		String noComma = StringUtils.remove(dollars, ",");
+		String noComma = remove(dollars, ",");
 		// $250000
-		String dollarSign = StringUtils.remove(noComma, "$");
+		String dollarSign = remove(noComma, "$");
 		// 250000
-		String noWords = StringUtils.substringBefore(dollarSign, " ");
-		String noSlash = StringUtils.substringBefore(noWords, "/");
-		String noStar = StringUtils.remove(noSlash, "*");
+		String noWords = substringBefore(dollarSign, " ");
+		String noSlash = substringBefore(noWords, "/");
+		String noStar = remove(noSlash, "*");
 		return Integer.parseInt(noStar);
 	}
 	

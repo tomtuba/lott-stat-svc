@@ -1,11 +1,15 @@
 package com.lottstat.converter;
 
+import static org.apache.commons.lang3.StringUtils.remove;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
+import static org.apache.commons.lang3.StringUtils.trim;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,7 +47,7 @@ public class FloridaConverter extends Converter {
 			
 			// The game name cell
 			Element cellTwo = cells.get(1).select("a").get(0);
-			String gameName = StringUtils.trim(cellTwo.html());
+			String gameName = trim(cellTwo.html());
 
 			// Find the game (if we already had it) or create it (if we didn't have it yet)
 			Game game = gameMap.get(gameName);
@@ -52,7 +56,7 @@ public class FloridaConverter extends Converter {
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
 				game.setGameCost(convertNumber(cells.get(4).html()));
-				game.setGameNumber(StringUtils.trim(cells.get(0).html()));
+				game.setGameNumber(trim(cells.get(0).html()));
 				
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);
@@ -75,13 +79,13 @@ public class FloridaConverter extends Converter {
 	
 	private int convertRemainingPrizes(String html){
 		//1 of 6 
-		String remainingPrizes = StringUtils.substringBefore(html, " of");
+		String remainingPrizes = substringBefore(html, " of");
 		return Integer.parseInt(remainingPrizes);
 	}
 	private int convertTotalPrizes(String html){
-		String totalPrizes = StringUtils.substringAfter(html, "of ");
-		String noSpace = StringUtils.trim(totalPrizes);
-		String noStar = StringUtils.remove(noSpace, "*");
+		String totalPrizes = substringAfter(html, "of ");
+		String noSpace = trim(totalPrizes);
+		String noStar = remove(noSpace, "*");
 		return Integer.parseInt(noStar);
 	}
 	@Override

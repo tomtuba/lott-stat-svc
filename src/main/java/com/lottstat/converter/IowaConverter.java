@@ -1,11 +1,15 @@
 package com.lottstat.converter;
 
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
+import static org.apache.commons.lang3.StringUtils.substringBetween;
+import static org.apache.commons.lang3.StringUtils.trim;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -43,15 +47,15 @@ public class IowaConverter extends Converter {
 			Elements cells = row.select("td");
 			if (cells.size() > 0) {
 				String gameCost = getFont(cells.get(0));
-				if (!StringUtils.equals(gameCost, "&nbsp;")) {
-					String gameName = StringUtils.trim(getGameName(getFont(cells.get(1))));
+				if (equalsIgnoreCase(gameCost, "&nbsp;")) {
+					String gameName = trim(getGameName(getFont(cells.get(1))));
 					game = gameMap.get(gameName);
 					if (game == null) {
 						game = new Game();
 						game.setPrizes(new ArrayList<Prize>());
 						game.setName(gameName);
 						game.setGameCost(convertNumber(gameCost));
-						game.setGameNumber(StringUtils.trim(getGameNumber(getFont(cells.get(1)))));
+						game.setGameNumber(trim(getGameNumber(getFont(cells.get(1)))));
 						// game.setGameNumber(StringUtils.trim(cells.get(0).html()));
 
 						// Keep track of the new game so we don't create another
@@ -69,11 +73,11 @@ public class IowaConverter extends Converter {
 	}
 
 	private String getGameName(String html) {
-		return StringUtils.substringBefore(html, "(");
+		return substringBefore(html, "(");
 	}
 
 	private String getGameNumber(String html) {
-		return StringUtils.substringBetween(html, "(#", ")");
+		return substringBetween(html, "(#", ")");
 	}
 
 	private String getFont(Element cell) {

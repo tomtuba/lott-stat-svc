@@ -1,11 +1,12 @@
 package com.lottstat.converter;
 
+import static org.apache.commons.lang3.StringUtils.trim;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,7 +45,7 @@ public class CaliforniaConverter extends Converter{
 			// The game name cell
 			//Why is this OutOfBounds
 			
-			String gameName = StringUtils.trim(cells.get(2).select("a").get(0).html());
+			String gameName = trim(cells.get(2).select("a").get(0).html());
 			// Find the game (if we already had it) or create it (if we didn't
 			// have it yet)
 			Game game = gameMap.get(gameName);
@@ -53,7 +54,7 @@ public class CaliforniaConverter extends Converter{
 				game.setPrizes(new ArrayList<Prize>());
 				game.setName(gameName);
 				game.setGameCost(convertNumber(cells.get(0).html()));
-				game.setGameNumber(StringUtils.trim(cells.get(1).html()));
+				game.setGameNumber(trim(cells.get(1).html()));
 
 				// Keep track of the new game so we don't create another one
 				gameMap.put(gameName, game);

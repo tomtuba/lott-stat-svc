@@ -1,20 +1,24 @@
 	package com.lottstat.converter;
 
-	import java.util.ArrayList;
-	import java.util.HashMap;
-	import java.util.List;
-	import java.util.Map;
+	import static org.apache.commons.lang3.StringUtils.remove;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
+import static org.apache.commons.lang3.StringUtils.trim;
 
-	import org.apache.commons.lang3.StringUtils;
-	import org.jsoup.Jsoup;
-	import org.jsoup.nodes.Document;
-	import org.jsoup.nodes.Element;
-	import org.jsoup.select.Elements;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-	import com.lottstat.entity.Game;
-	import com.lottstat.entity.Prize;
-	import com.lottstat.entity.State;
-	import com.lottstat.entity.StateEnum;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.lottstat.entity.Game;
+import com.lottstat.entity.Prize;
+import com.lottstat.entity.State;
+import com.lottstat.entity.StateEnum;
 
 	public class LouisianaConverter extends Converter{
 		protected LouisianaConverter(){
@@ -44,7 +48,7 @@
 
 				// The game name cell
 				Element cellTwo = cells.get(1).select("td").get(0);
-				String gameName = StringUtils.trim(cellTwo.select("a").get(0).html());
+				String gameName = trim(cellTwo.select("a").get(0).html());
 				
 
 				// Find the game (if we already had it) or create it (if we didn't
@@ -55,7 +59,7 @@
 					game.setPrizes(new ArrayList<Prize>());
 					game.setName(gameName);
 					game.setGameCost(convertNumber(cells.get(4).select("strong").get(0).html()));
-					game.setGameNumber(StringUtils.trim(cells.get(0).select("td").html()));
+					game.setGameNumber(trim(cells.get(0).select("td").html()));
 
 					// Keep track of the new game so we don't create another one
 					gameMap.put(gameName, game);
@@ -76,13 +80,13 @@
 		}
 		private int convertRemainingPrizes(String html){
 			//1 of 6 
-			String remainingPrizes = StringUtils.substringBefore(html, " of");
+			String remainingPrizes = substringBefore(html, " of");
 			return Integer.parseInt(remainingPrizes);
 		}
 		private int convertTotalPrizes(String html){
-			String totalPrizes = StringUtils.substringAfter(html, "of ");
-			String noSpace = StringUtils.trim(totalPrizes);
-			String noStar = StringUtils.remove(noSpace, "*");
+			String totalPrizes = substringAfter(html, "of ");
+			String noSpace = trim(totalPrizes);
+			String noStar = remove(noSpace, "*");
 			return Integer.parseInt(noStar);
 		}
 		@Override

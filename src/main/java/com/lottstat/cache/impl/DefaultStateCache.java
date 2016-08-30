@@ -46,6 +46,8 @@ public class DefaultStateCache implements StateCache {
 		}
 		return stateStorage.getState();
 	}
+	
+	
 
 	private StateStorage buildNewStateStorage(StateEnum stateEnum) {
 		StateStorage stateStorage = new StateStorage();
